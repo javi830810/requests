@@ -41,19 +41,15 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write(self._write_request())
 
     def post(self):
-        body = self._write_request()
-
         request_db = Request()
-        request_db.request = body
+        request_db.request = self.request.body
         request_db.date = datetime.datetime.now()
         request_db.type = self._get_request_type(self.request.body)
         request_db.put()
 
     def _get_request_type(self, body):
         try:
-
             type = self.request.get('action', None)
-
             if type:
                 return type
 
@@ -62,39 +58,15 @@ class MainHandler(webapp2.RequestHandler):
         except:
             return ""
 
-    def _write_headers(self):
-        request_string = ''
-        headers = self.request.headers()
-        if headers:
-            for var in headers:
-                request_string += "%s : %s"%(var, self.request(var))
-        return request_string
-
-    def _write_request(self):
-        request_string = ''
-        variables = self.request.arguments()
-        if variables:
-            for var in variables:
-                request_string += "%s : %s" %(var, self.request.get(var, default_value=None))
-
-        # if self.request.method != 'GET' and self.request.content_type == 'application/json':
-        #     request_string += self._write_json_body(self.request.body)
-        # elif self.request.method != 'GET':
-        #     request_string += 'Request Body: <br><br>'
-        #     request_string += self.request.body
-
-        return request_string
-
-    def _write_json_body(self, body):
-        a = json.loads(body)
-        request_string = ''
-        #request_string += 'Request Body: \n'
-        request_string += '{\n'
-        for key in a.keys():
-            request_string += "%s : %s" %(key, a[key])
-        request_string += '}'
-
-        return request_string
+    # def _write_request(self):
+    #     request_string = '{'
+    #     variables = self.request.arguments()
+    #     if variables:
+    #         for var in variables:
+    #             request_string += """ "%s" : "%s", """ %(var, self.request.get(var, default_value=''))
+    #     request_string += '}'
+    #
+    #     return request_string
 
 
 class ShowOffHandler(webapp2.RequestHandler):
@@ -108,14 +80,24 @@ class ShowOffHandler(webapp2.RequestHandler):
 
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render({
-            'user_registration': user_registration,
-            'course_registration': course_registration,
-            'challenge_exam_graded': challenge_exam_graded,
-            'quiz_graded': quiz_graded,
+            'user_registration': self.pretty_print(user_registration),
+            'course_registration': self.pretty_print(course_registration),
+            'challenge_exam_graded': self.pretty_print(challenge_exam_graded),
+            'quiz_graded': self.pretty_print(quiz_graded),
         }))
+
+    def pretty_print(self, requests):
+        requests = []
+
+        for req in requests:
+            try:
+                requests.append(json.load(req.body))
+            except Exception, e:
+                requests.append({'cant parse request': req.body})
+
+        return requests
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/show', ShowOffHandler)
-
 ], debug=True)

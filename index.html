@@ -121,10 +121,16 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a id="user_registration" href="#">User Registration</a></li>
-                  <li><a id="course_registration" href="#">Course Registration</a></li>
-                <li><a id="ce_graded" href="#">Challenge Exam Graded</a></li>
-                <li><a id="quiz_graded" href="#">Quiz Graded</a></li>
+                <li id="user_registration_b" class="active" ><a class="action_button" href="#"
+                                                                data-list="user_registration_list"
+                                                                data-button="user_registration_b">User Registration</a></li>
+                  <li id="course_registration_b"><a class="action_button" href="#"
+                                                                data-list="course_registration_list"
+                                                                data-button="course_registration_b">Course Registration</a></li>
+                <li id="ce_graded_b"><a class="action_button" href="#" data-list="ce_graded_list"
+                                                                data-button="ce_graded_b">Challenge Exam Graded</a></li>
+                <li id="quiz_graded_b"><a class="action_button" href="#" data-list="quiz_graded_list"
+                                                                data-button="quiz_graded_b">Quiz Graded</a></li>
               </ul>
             </div>
           </div>
@@ -136,29 +142,29 @@
         <h1>Hit the Menu items to see the magic!</h1>
       </div>
 
-      <ul class="widget_list hidden" id="course_registration_list">
-          {% for user_register in course_registration %}
-               <li class="widget">{{ user_register.request }}</li>
-          {% endfor %}
-      </ul>
-
-      <ul class="widget_list  hidden" id="user_registration_list">
+      <div class="widget_list hidden" id="user_registration_list">
           {% for user_register in user_registration %}
                <li class="widget">{{ user_register.request }}</li>
           {% endfor %}
-      </ul>
+      </div>
 
-      <ul class="widget_list  hidden" id="ce_graded_list">
+      <div class="widget_list hidden" id="course_registration_list">
+          {% for user_register in course_registration %}
+               <li class="widget">{{ user_register.request }}</li>
+          {% endfor %}
+      </div>
+
+      <div class="widget_list hidden" id="ce_graded_list">
           {% for user_register in challenge_exam_graded %}
                <li class="widget">{{ user_register.request }}</li>
           {% endfor %}
-      </ul>
+      </div>
 
-      <ul class="widget_list  hidden" id="quiz_graded_list">
+      <div class="widget_list  hidden" id="quiz_graded_list">
           {% for user_register in quiz_graded %}
                <li class="widget">{{ user_register.request }}</li>
           {% endfor %}
-      </ul>
+      </div>
 
       <div class="footer">
         <p>© Kaplan Inc</p>
@@ -168,55 +174,32 @@
 
     <script>
 
-
         $( document ).ready(function() {
-            var course_registration_list = $('#course_registration_list');
-            var user_registration_list = $('#user_registration_list');
-            var ce_graded_list = $('#ce_graded_list');
-            var quiz_graded_list = $('#quiz_graded_list');
 
-            var title = $('#title');
+            var $list = $('#user_registration_list');
+            var $button = $('#user_registration_b');
 
-            var all = [
-                    title,
-                    course_registration_list,
-                    user_registration_list,
-                    ce_graded_list,
-                    quiz_graded_list
-            ];
+            $('.action_button').click(function(){
 
-            var hide_all = function hide_all(){
-                all.forEach(function(element, index, array){
-                    element.addClass('hidden');
-                });
-            };
+                var $this = $(this);
 
+                if(this == $button)
+                    return;
 
-            $('#user_registration').click(function(){
-                hide_all();
-                user_registration_list.removeClass('hidden');
+                $('.jumbotron').addClass('hidden');
 
+                var last = $list;
+                var last_b = $button;
+
+                last_b.removeClass('active');
+                last.addClass('hidden');
+
+                $list = $('#'+$this.data('list'));
+                $button = $('#'+$this.data('button'));
+
+                $button.addClass('active');
+                $list.removeClass('hidden');
             });
-
-            $('#course_registration').click(function(){
-                hide_all();
-                course_registration_list.removeClass('hidden');
-
-            });
-
-            $('#ce_graded').click(function(){
-                hide_all();
-                ce_graded_list.removeClass('hidden');
-
-            });
-
-            $('#quiz_graded').click(function(){
-                hide_all();
-                quiz_graded_list.removeClass('hidden');
-
-            });
-
-
         });
 
 
