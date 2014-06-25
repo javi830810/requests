@@ -1,19 +1,3 @@
-#!/usr/bin/env python
-#
-# Copyright 2007 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 import webapp2
 import json
 import os
@@ -21,6 +5,7 @@ import datetime
 import urllib
 from google.appengine.ext import ndb
 import jinja2
+import logging
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -38,7 +23,7 @@ class MainHandler(webapp2.RequestHandler):
     file = 'requests'
 
     def get(self):
-        self.response.write(self._write_request())
+        self.post()
 
     def post(self):
         request_db = Request()
@@ -58,16 +43,6 @@ class MainHandler(webapp2.RequestHandler):
         except:
             return ""
 
-    # def _write_request(self):
-    #     request_string = '{'
-    #     variables = self.request.arguments()
-    #     if variables:
-    #         for var in variables:
-    #             request_string += """ "%s" : "%s", """ %(var, self.request.get(var, default_value=''))
-    #     request_string += '}'
-    #
-    #     return request_string
-
 
 class ShowOffHandler(webapp2.RequestHandler):
     def get(self):
@@ -76,7 +51,6 @@ class ShowOffHandler(webapp2.RequestHandler):
         course_registration = Request.query(Request.type == 'course_registration').order(Request.date).fetch()
         challenge_exam_graded = Request.query(Request.type == 'challenge_exam_graded').order(Request.date).fetch()
         quiz_graded = Request.query(Request.type == 'quiz_graded').order(Request.date).fetch()
-
 
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render({
@@ -87,15 +61,31 @@ class ShowOffHandler(webapp2.RequestHandler):
         }))
 
     def pretty_print(self, requests):
-        requests = []
-
+        result = []
         for req in requests:
-            try:
-                requests.append(json.load(req.body))
-            except Exception, e:
-                requests.append({'cant parse request': req.body})
+            request_dict = self.try_to_parse_json(req.request)
+            if not request_dict:
+                request_dict = self.try_to_parse_form(req.request)
 
-        return requests
+            result.append(request_dict)
+        return result
+
+    def try_to_parse_json(self, request):
+        try:
+            return json.loads(request)
+        except Exception, e:
+            return {}
+
+    def try_to_parse_form(self, request):
+        vars = request.split('&')
+        result = {}
+        for x in vars:
+            y = x.split('=')
+            logging.info(y)
+            result[y[0]] = y[1]
+
+        return result
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

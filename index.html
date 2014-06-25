@@ -1,6 +1,6 @@
 <html lang="en"><head>
     <meta charset="utf-8">
-    <title>Template · Bootstrap</title>
+    <title>Events Received</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -84,20 +84,25 @@
           display: block;
           position: relative;
           width: 45%;
-          height: 100px;
           background-color: lightgray;
       }
 
       .widget_list{
-          position: absolute;
-          top:20%;
-          width: 100%;
-          height: auto;
-          display: block;
+        position: absolute;
+        top:20%;
+        width: 100%;
+        display: block;
+      }
+
+      .request{
+
       }
 
       .hidden{
           display: none;
+      }
+      ul{
+            list-style-type: none;
       }
 
     </style>
@@ -142,31 +147,63 @@
         <h1>Hit the Menu items to see the magic!</h1>
       </div>
 
-      <div class="widget_list hidden" id="user_registration_list">
-          {% for user_register in user_registration %}
-               <li class="widget">{{ user_register.request }}</li>
+      <ul class="widget_list hidden" id="user_registration_list">
+          {% for request in user_registration %}
+                <li class="widget">
+                    <ul>
+                    {% for key in request %}
+                        <li>
+                            <span style="color:green">{{ key }}</span>:{{request[key]}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </li>
           {% endfor %}
-      </div>
+      </ul>
 
-      <div class="widget_list hidden" id="course_registration_list">
-          {% for user_register in course_registration %}
-               <li class="widget">{{ user_register.request }}</li>
+      <ul class="widget_list hidden" id="course_registration_list">
+          {% for request in course_registration %}
+                <li class="widget">
+                    <ul>
+                    {% for key in request %}
+                        <li>
+                             <span style="color:green">{{ key }}</span>:{{request[key]}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </li>
           {% endfor %}
-      </div>
+      </ul>
 
-      <div class="widget_list hidden" id="ce_graded_list">
-          {% for user_register in challenge_exam_graded %}
-               <li class="widget">{{ user_register.request }}</li>
+      <ul class="widget_list hidden" id="ce_graded_list">
+          {% for request in challenge_exam_graded %}
+                <li class="widget">
+                    <ul>
+                    {% for key in request %}
+                        <li>
+                            <span style="color:green">{{ key }}</span>:{{request[key]}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </li>
           {% endfor %}
-      </div>
+      </ul>
 
-      <div class="widget_list  hidden" id="quiz_graded_list">
-          {% for user_register in quiz_graded %}
-               <li class="widget">{{ user_register.request }}</li>
+      <ul class="widget_list hidden" id="quiz_graded_list">
+          {% for request in quiz_graded %}
+                <li class="widget">
+                    <ul>
+                    {% for key in request %}
+                        <li>
+                            <span style="color:green">{{ key }}</span>:{{request[key]}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </li>
           {% endfor %}
-      </div>
+      </ul>
 
-      <div class="footer">
+      <div class="footer" style="display: block;position: relative">
         <p>© Kaplan Inc</p>
       </div>
 
