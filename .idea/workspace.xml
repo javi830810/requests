@@ -26,8 +26,10 @@
       <file leaf-file-name="main.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="26" selection-start="2578" selection-end="2578" vertical-scroll-proportion="0.0" vertical-offset="548" max-vertical-offset="1472">
-              <folding />
+            <state line="107" column="0" selection-start="2950" selection-end="2950" vertical-scroll-proportion="0.0" vertical-offset="1248" max-vertical-offset="2368">
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,13 +46,10 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="169" column="55" selection-start="5004" selection-end="5004" vertical-scroll-proportion="0.45300114" vertical-offset="2304" max-vertical-offset="4000">
+            <state line="191" column="43" selection-start="5146" selection-end="5146" vertical-scroll-proportion="0.58323896" vertical-offset="2541" max-vertical-offset="3584">
               <folding>
-                <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1403815962000" expanded="true" signature="5615:5626" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -75,8 +74,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="70" />
-    <option name="y" value="22" />
+    <option name="x" value="66" />
+    <option name="y" value="27" />
     <option name="width" value="1839" />
     <option name="height" value="1028" />
   </component>
@@ -345,7 +344,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="70" y="22" width="1839" height="1028" extended-state="0" />
+    <frame x="66" y="27" width="1839" height="1028" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -388,7 +387,9 @@
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="52" column="64" selection-start="1494" selection-end="1505" vertical-scroll-proportion="0.0" vertical-offset="484" max-vertical-offset="1392">
-          <folding />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -403,11 +404,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="191" column="39" selection-start="5664" selection-end="5664" vertical-scroll-proportion="0.0" vertical-offset="2523" max-vertical-offset="3984">
           <folding>
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1403815962000" expanded="true" signature="5615:5626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -415,7 +413,9 @@
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="97" column="18" selection-start="2862" selection-end="2862" vertical-scroll-proportion="0.0" vertical-offset="1074" max-vertical-offset="1984">
-          <folding />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -423,11 +423,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="157" column="38" selection-start="4234" selection-end="4234" vertical-scroll-proportion="0.0" vertical-offset="1419" max-vertical-offset="3680">
           <folding>
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1403815962000" expanded="true" signature="5615:5626" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -456,22 +453,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/google_appengine/google/appengine/ext/ndb/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="908">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/google_appengine/google/appengine/ext/db/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2137" column="6" selection-start="67629" selection-end="67629" vertical-scroll-proportion="0.33259913" vertical-offset="33666" max-vertical-offset="63712">
+          <folding>
+            <marker date="1391643800000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..missing_value..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="26" selection-start="2578" selection-end="2578" vertical-scroll-proportion="0.0" vertical-offset="548" max-vertical-offset="1472">
-          <folding />
+        <state line="107" column="0" selection-start="2950" selection-end="2950" vertical-scroll-proportion="0.0" vertical-offset="1248" max-vertical-offset="2368">
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="55" selection-start="5004" selection-end="5004" vertical-scroll-proportion="0.45300114" vertical-offset="2304" max-vertical-offset="4000">
+        <state line="191" column="43" selection-start="5146" selection-end="5146" vertical-scroll-proportion="0.58323896" vertical-offset="2541" max-vertical-offset="3584">
           <folding>
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#li#0;n#ul#0;n#li#0;n#ul#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1403815962000" expanded="true" signature="5615:5626" placeholder="..." />
           </folding>
         </state>
       </provider>

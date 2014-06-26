@@ -18,6 +18,50 @@ class Request(ndb.Model):
     type = ndb.StringProperty()
     date = ndb.DateTimeProperty()
 
+
+class JsonHandler(webapp2.RequestHandler):
+    """
+    Handles setting Content-Type to application/json
+    and returning of consistently formatted JSON results.
+    """
+    def __init__(self, request, response):
+        self.request_data = None
+        super(JsonHandler, self).__init__(request, response)
+
+    def dispatch(self):
+        try:
+            self.response.content_type = 'application/json'
+            result = super(JsonHandler, self).dispatch()
+            if result is not None:
+                self.api_success(result)
+        except Exception, e:
+            if not self.response.status:
+                self.error(500)
+            self.handle_exception(e, False)
+
+    def __render_json__(self, data):
+        self.response.write(json.dumps(data))
+
+    def api_success(self, data=None):
+        self.response.status = 200
+        self.__render_json__(data)
+
+    def set_location_header(self, model):
+        self.response.headers["Location"] = "{0}/{1}".format(self.request.path, model.key().id())
+
+    def handle_exception(self, exception, debug):
+        logging.exception(exception)
+        self.__render_json__(exception.message)
+
+    def _data(self):
+        if self.request_data is None:
+            data_string = self.request.body
+            self.request_data = json.loads(data_string)
+        return self.request_data
+
+    def get_response(self):
+        raise Exception("hello world")
+
 class MainHandler(webapp2.RequestHandler):
 
     file = 'requests'
@@ -45,22 +89,26 @@ class MainHandler(webapp2.RequestHandler):
 
 
 class ShowOffHandler(webapp2.RequestHandler):
+
     def get(self):
-
-        user_registration = Request.query(Request.type == 'user_registered').order(Request.date).fetch()
-        course_registration = Request.query(Request.type == 'course_registration').order(Request.date).fetch()
-        challenge_exam_graded = Request.query(Request.type == 'challenge_exam_graded').order(Request.date).fetch()
-        quiz_graded = Request.query(Request.type == 'quiz_graded').order(Request.date).fetch()
-
         template = JINJA_ENVIRONMENT.get_template('index.html')
-        self.response.write(template.render({
-            'user_registration': self.pretty_print(user_registration),
-            'course_registration': self.pretty_print(course_registration),
-            'challenge_exam_graded': self.pretty_print(challenge_exam_graded),
-            'quiz_graded': self.pretty_print(quiz_graded),
-        }))
+        self.response.write(template.render())
 
-    def pretty_print(self, requests):
+
+class EventListHandler(JsonHandler):
+
+    def get(self, event):
+        offset = self.request.get('offset', 0)
+        page_size = self.request.get('size', 1000)
+
+        result = Request.query(
+            Request.type == event).\
+            order(Request.date).\
+            fetch(page_size, offset=offset)
+
+        return self._pretty_print(result)
+
+    def _pretty_print(self, requests):
         result = []
         for req in requests:
             request_dict = self.try_to_parse_json(req.request)
@@ -82,12 +130,13 @@ class ShowOffHandler(webapp2.RequestHandler):
         for x in vars:
             y = x.split('=')
             logging.info(y)
-            result[y[0]] = y[1]
+            result[y[0]] = urllib.unquote(y[1])
 
         return result
 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/show', ShowOffHandler)
+    ('/show', ShowOffHandler),
+    webapp2.Route('/event/<event>', handler='main.EventListHandler', name='list', handler_method='get')
 ], debug=True)

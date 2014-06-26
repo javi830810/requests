@@ -126,16 +126,10 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li id="user_registration_b" class="active" ><a class="action_button" href="#"
-                                                                data-list="user_registration_list"
-                                                                data-button="user_registration_b">User Registration</a></li>
-                  <li id="course_registration_b"><a class="action_button" href="#"
-                                                                data-list="course_registration_list"
-                                                                data-button="course_registration_b">Course Registration</a></li>
-                <li id="ce_graded_b"><a class="action_button" href="#" data-list="ce_graded_list"
-                                                                data-button="ce_graded_b">Challenge Exam Graded</a></li>
-                <li id="quiz_graded_b"><a class="action_button" href="#" data-list="quiz_graded_list"
-                                                                data-button="quiz_graded_b">Quiz Graded</a></li>
+                <li id="user_registration_b" class="active" ><a class="action_button" href="#" data-event="user_registered">User Registration</a></li>
+                  <li id="course_registration_b"><a class="action_button" href="#" data-event="course_registration">Course Registration</a></li>
+                <li id="ce_graded_b"><a class="action_button" href="#" data-event="challenge_exam_graded">Challenge Exam Graded</a></li>
+                <li id="quiz_graded_b"><a class="action_button" href="#" data-event="quiz_graded">Quiz Graded</a></li>
               </ul>
             </div>
           </div>
@@ -147,61 +141,23 @@
         <h1>Hit the Menu items to see the magic!</h1>
       </div>
 
-      <ul class="widget_list hidden" id="user_registration_list">
-          {% for request in user_registration %}
-                <li class="widget">
-                    <ul>
-                    {% for key in request %}
-                        <li>
-                            <span style="color:green">{{ key }}</span>:{{request[key]}}
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </li>
-          {% endfor %}
+
+      <ul class="widget_list hidden" id="container">
       </ul>
 
-      <ul class="widget_list hidden" id="course_registration_list">
-          {% for request in course_registration %}
-                <li class="widget">
-                    <ul>
-                    {% for key in request %}
-                        <li>
-                             <span style="color:green">{{ key }}</span>:{{request[key]}}
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </li>
-          {% endfor %}
-      </ul>
-
-      <ul class="widget_list hidden" id="ce_graded_list">
-          {% for request in challenge_exam_graded %}
-                <li class="widget">
-                    <ul>
-                    {% for key in request %}
-                        <li>
-                            <span style="color:green">{{ key }}</span>:{{request[key]}}
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </li>
-          {% endfor %}
-      </ul>
-
-      <ul class="widget_list hidden" id="quiz_graded_list">
-          {% for request in quiz_graded %}
-                <li class="widget">
-                    <ul>
-                    {% for key in request %}
-                        <li>
-                            <span style="color:green">{{ key }}</span>:{{request[key]}}
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </li>
-          {% endfor %}
-      </ul>
+      <!--<ul class="widget_list hidden" id="quiz_graded_list">-->
+          <!--{% for request in quiz_graded %}-->
+                <!--<li class="widget">-->
+                    <!--<ul>-->
+                    <!--{% for key in request %}-->
+                        <!--<li>-->
+                            <!--<span style="color:green">{{ key }}</span>:{{request[key]}}-->
+                        <!--</li>-->
+                    <!--{% endfor %}-->
+                    <!--</ul>-->
+                <!--</li>-->
+          <!--{% endfor %}-->
+      <!--</ul>-->
 
       <div class="footer" style="display: block;position: relative">
         <p>© Kaplan Inc</p>
@@ -210,32 +166,50 @@
     </div> <!-- /container -->
 
     <script>
+        var events = [
+                'user_registered',
+                'course_registration',
+                'ce_graded',
+                'quiz_graded'
+        ];
+
+        var selected_event = '';
 
         $( document ).ready(function() {
 
-            var $list = $('#user_registration_list');
-            var $button = $('#user_registration_b');
+            var $container = $('#container');
 
             $('.action_button').click(function(){
+                $container.removeClass('hidden');
+                $('#title').addClass('hidden');
 
                 var $this = $(this);
+                var event = $this.data('event');
 
-                if(this == $button)
+                if(event == selected_event)
                     return;
+                else
+                    selected_event = event;
 
-                $('.jumbotron').addClass('hidden');
+                $container.empty();
 
-                var last = $list;
-                var last_b = $button;
+                $.ajax({ url: "/event/" + event}).done(function( data ) {
+                    var dom_result = "";
+                    data.forEach(function(entry) {
+                        dom_result += '<li class="widget">';
+                        dom_result += "<ul>";
+                        for (prop_name in entry) {
+                            dom_result += "<li>";
+                            dom_result += '<span style="color:green">' + prop_name + ':</span>';
+                            dom_result += entry[prop_name];
+                            dom_result += "</li>";
+                        }
+                        dom_result += "</ul>";
+                        dom_result += '</li>';
+                    });
 
-                last_b.removeClass('active');
-                last.addClass('hidden');
-
-                $list = $('#'+$this.data('list'));
-                $button = $('#'+$this.data('button'));
-
-                $button.addClass('active');
-                $list.removeClass('hidden');
+                    $container.append(dom_result);
+                });
             });
         });
 
