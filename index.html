@@ -88,7 +88,7 @@
       }
 
       .widget_list{
-        position: absolute;
+        position: relative;
         top:20%;
         width: 100%;
         display: block;
@@ -103,6 +103,13 @@
       }
       ul{
             list-style-type: none;
+      }
+
+      #search{
+          display: inline;
+          color: grey;
+          cursor: pointer;
+          margin-left: 10px;
       }
 
     </style>
@@ -122,18 +129,20 @@
 
       <div class="masthead">
         <h3 class="muted">Events Received</h3>
+
         <div class="navbar">
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li id="user_registration_b" class="active" ><a class="action_button" href="#" data-event="user_registered">User Registration</a></li>
-                  <li id="course_registration_b"><a class="action_button" href="#" data-event="course_registration">Course Registration</a></li>
-                <li id="ce_graded_b"><a class="action_button" href="#" data-event="challenge_exam_graded">Challenge Exam Graded</a></li>
-                <li id="quiz_graded_b"><a class="action_button" href="#" data-event="quiz_graded">Quiz Graded</a></li>
+                <li class="active" ><a class="action_button" href="#" data-event="user_registered">User Registration</a></li>
+                <li ><a class="action_button" href="#" data-event="course_registration">Course Registration</a></li>
+                <li ><a class="action_button" href="#" data-event="challenge_exam_graded">Challenge Exam Graded</a></li>
+                <li ><a class="action_button" href="#" data-event="quiz_graded">Quiz Graded</a></li>
               </ul>
             </div>
           </div>
         </div><!-- /.navbar -->
+          <h3 class="muted"><div><input id="event_text" style="width: 200px;height: 30px;" type="text" /><div id="search">Search</div></div></h3>
       </div>
 
       <!-- Jumbotron -->
@@ -178,13 +187,18 @@
         $( document ).ready(function() {
 
             var $container = $('#container');
+            var $last = null;
+            var $event_text = $('#event_text');
 
-            $('.action_button').click(function(){
+            var list_event = function(button, event){
+
                 $container.removeClass('hidden');
                 $('#title').addClass('hidden');
 
-                var $this = $(this);
-                var event = $this.data('event');
+                if($last != null)
+                    $last.parent().removeClass('active');
+                if(button != null)
+                    button.addClass('active');
 
                 if(event == selected_event)
                     return;
@@ -210,7 +224,28 @@
 
                     $container.append(dom_result);
                 });
+            };
+
+
+            $('.action_button').click(function(){
+                var $this = $(this);
+                var event = $this.data('event');
+                list_event($this ,event);
+
+                $last = $this;
             });
+
+            $event_text.keypress(function(e) {
+                if(e.which == 13) {
+                    list_event(null, $event_text.val());
+                }
+            });
+
+            $('#search').click(function(){
+                list_event(null, $event_text.val());
+            });
+
+
         });
 
 
