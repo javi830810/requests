@@ -72,7 +72,7 @@ class ShowOffHandler(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render({
-            'all': Request.query().order(Request.date).fetch(99),
+            'all': Request.query().order(-Request.date).fetch(99),
         }))
 
 app = webapp2.WSGIApplication([
